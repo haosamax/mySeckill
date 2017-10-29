@@ -7,7 +7,6 @@ import org.seckill.entity.Seckill;
 import org.seckill.enums.SeckillSateEnum;
 import org.seckill.exception.RepeatKillExecption;
 import org.seckill.exception.SeckillClosedExecption;
-import org.seckill.exception.SeckillExecption;
 import org.seckill.service.SeckillService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,17 +91,17 @@ public class SeckillController {
         } catch (RepeatKillExecption r){
 
             SeckillExecution execution = new SeckillExecution(seckillId, SeckillSateEnum.REPEATE_KILL);
-            return new SeckillResult<SeckillExecution>(false, execution);
+            return new SeckillResult<SeckillExecution>(true, execution);
         } catch (SeckillClosedExecption c){
 
 
             SeckillExecution execution = new SeckillExecution(seckillId, SeckillSateEnum.END);
-            return new SeckillResult<SeckillExecution>(false, execution);
+            return new SeckillResult<SeckillExecution>(true, execution);
         } catch (Exception seckillExecption) {
             logger.error(seckillExecption.getMessage());
 
             SeckillExecution execution = new SeckillExecution(seckillId, SeckillSateEnum.INNER_ERROR);
-            return new SeckillResult<SeckillExecution>(false, execution);
+            return new SeckillResult<SeckillExecution>(true, execution);
         }
 
     }
@@ -111,8 +110,10 @@ public class SeckillController {
 
     //获取系统时间
     @RequestMapping(value = "/time/now", method = RequestMethod.GET)
+    @ResponseBody
     public SeckillResult<Long> time(){
-        Date date= new Date();
+        Date date = new Date();
+
         return new SeckillResult<Long>(true,date.getTime());
     }
 
