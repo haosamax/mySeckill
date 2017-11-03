@@ -82,7 +82,7 @@ var seckill = {
         nowTime = new Date(nowTime).getTime();
         //判断时间
         if(nowTime > endTime){
-            alert(1)
+
             //秒杀结束
             seckillBox.html('秒杀结束')
         }else if(nowTime.ge < startTime){
@@ -102,7 +102,7 @@ var seckill = {
             });
         }else {
             //秒杀开始
-            alert(3)
+
             seckill.handleSeckill(seckillId, seckillBox)
 
 
@@ -150,27 +150,24 @@ var seckill = {
                     }
 
                 });
+            }else{
+                //已经登陆获取系统时间
+
+                var startTime = param['startTime'];
+                var endTime = param['endTime'];
+                var seckillId = param['seckillId'];
+
+                $.get(seckill.URL.now(),function (result) {
+
+                    if(result && result['success']){
+                        var nowTime = result['data'];
+                        //时间控制
+                        seckill.countdown(seckillId, nowTime, startTime, endTime);
+                    }else {
+                        console.log(result);
+                    }
+                });
             }
-
-
-            //已经登陆获取系统时间
-
-            var startTime = param['startTime'];
-            var endTime = param['endTime'];
-            var seckillId = param['seckillId'];
-
-            $.get(seckill.URL.now(),function (result) {
-
-                if(result && result['success']){
-                    var nowTime = result['error'];
-
-                    //时间控制
-                    seckill.countdown(seckillId, nowTime, startTime, endTime);
-                }else {
-                    console.log(result);
-                }
-            });
-
 
 
 
