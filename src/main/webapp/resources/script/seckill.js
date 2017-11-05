@@ -86,7 +86,6 @@ var seckill = {
             //秒杀结束
             seckillBox.html('秒杀结束')
         }else if(nowTime.ge < startTime){
-            alert(nowTime+ ' '+startTime)
             //秒杀未开始，计时事件
             var killTime = new Date(Number(startTime) + 1000);
             seckillBox.countdown(killTime, function(event){
@@ -102,7 +101,6 @@ var seckill = {
             });
         }else {
             //秒杀开始
-
             seckill.handleSeckill(seckillId, seckillBox)
 
 
